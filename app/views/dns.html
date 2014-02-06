@@ -1,0 +1,101 @@
+<div class="panel">
+ <h3>Domains</h3>
+ <div class="scrollable">
+ <table class="table table-hover table-condensed">
+   <!--  <tr style="font-weight: bold">
+      <td style="width:35%">Name</td>
+      <td style="width:35%">IP</td>
+      <td style="width:30%">Edit</td>
+    </tr> -->
+    <tr ng-repeat="domain in domains" ng-click="selectDomain(domain)">
+      <td>
+        <span editable-text="domain.name" e-name="name" e-form="rowform" onbeforesave="checkDomainName($data)" e-required>
+          {{ domain.name || 'empty' }}
+        </span>
+      </td>
+      <td>
+        <span editable-select="domain.ip" e-name="ip" e-form="rowform" e-ng-options="i.value as i.value for i in ip">
+          {{ showIP(domain)}}
+        </span>
+      </td>
+      <td style="white-space: nowrap">
+        <!-- form -->
+
+        <form editable-form name="rowform" onbeforesave="saveDomain($data, domain.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == domain">
+        	<div class="buttons float-right">
+	          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+	            save
+	          </button>
+	          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+	            cancel
+	          </button>
+          </div>
+        </form>
+
+        <div class="buttons float-right" ng-show="!rowform.$visible">
+          <button class="btn btn-primary" ng-click="rowform.$show()" >edit</button>
+          <button class="btn btn-danger"  fp-confirm-click="Would you like to delete it?" fp-on-confirm="removeDomain($index)">del</button>
+        </div>  
+      </td>
+    </tr>
+  </table>
+</div> <!--scrolable-->
+  <button class="btn btn-default" ng-click="addDomain()">Add domain</button>
+</div>
+
+
+<div class="panel">
+	<h3>Records</h3>
+  <div class="scrollable">
+ <!--  <div class="sort">
+      <div  class="btn btn-primary" ng-repeat="type in types" ng-model="search.type" ng-click="alert(this.value)">
+              {{type}}
+      </div>
+
+  </div> -->
+  <table class="table table-hover table-condensed">
+   <!--  <tr style="font-weight: bold">
+      <td style="width:35%">Name</td>
+      <td style="width:35%">IP</td>
+      <td style="width:30%">Edit</td>
+    </tr> -->
+    <tr ng-model="records" ng-repeat="record in records | filter:f:strict">
+      <td>
+        <span editable-text="record.name" e-name="name" e-form="rowform2" onbeforesave="" e-required>
+          {{record.name}}
+        </span>
+      </td>
+      <td>
+        <span editable-text="record.content" e-name="content" e-form="rowform2">
+          {{record.content}}
+        </span>
+      </td>
+      <td>
+        <span editable-select="record.type" e-name="type" e-form="rowform2" e-ng-options="t as t for t in types">
+          {{showType(record)}}
+        </span>
+      </td>    
+      <td style="white-space: nowrap">
+        <!-- form -->
+
+        <form editable-form name="rowform2" onbeforesave="saveRecord($data, record.id)" ng-show="rowform2.$visible" class="form-buttons form-inline" shown="inserted == record">
+        	<div class="buttons float-right">
+	          <button type="submit" ng-disabled="rowform2.$waiting" class="btn btn-primary">
+	            save
+	          </button>
+	          <button type="button" ng-disabled="rowform2.$waiting" ng-click="rowform2.$cancel()" class="btn btn-default">
+	            cancel
+	          </button>
+          </div>
+        </form>
+
+        <div class="buttons float-right" ng-show="!rowform2.$visible">
+          <button class="btn btn-primary" ng-click="rowform2.$show()" >edit</button>
+          <button class="btn btn-danger" fp-confirm-click="Would you like to delete it?" fp-on-confirm="removeRecord($index)">del</button>
+        </div>  
+      </td>
+    </tr>
+  </table>
+  </div>
+	<button class="btn btn-default" ng-click="addRecord()">Add record</button>
+</div>

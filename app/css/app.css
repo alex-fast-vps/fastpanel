@@ -1,0 +1,41 @@
+/* app css stylesheet */
+body{
+  padding-top:10px;
+  width:80%;
+  min-width: 600px;
+  max-width: 1200px;
+  margin:auto;
+  overflow:auto;
+}
+
+.panel{
+  width:600px;
+  padding:20px;
+  float:left;
+  
+}
+
+.scrollable{
+  overflow-x: hidden;
+  overflow-y: auto;
+  height:300px; /*min-*/
+}
+
+.float-right{
+  float:right;
+}
+
+
+.editable-input{
+
+  max-width:150px;
+}
+/*test*/
+
+.divider-vertical {
+height: 50px;
+margin: 0 9px;
+border-left: 1px solid #F2F2F2;
+border-right: 1px solid #FFF;
+}
+
